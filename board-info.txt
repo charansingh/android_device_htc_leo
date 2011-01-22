@@ -1,0 +1,4 @@
+require mid=P*
+require board=leo|hd2
+require version-microp=031d
+require version-baseband=5.12.00.09
