@@ -100,7 +100,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     sensors.leo \
     lights.leo \
-    librs_jnigralloc.qsd8k \
+    librs_jni \
+    gralloc.qsd8k \
     copybit.qsd8k \
     gps.leo \
     libOmxCore \
@@ -132,7 +133,7 @@ PRODUCT_COPY_FILES += \
     device/htc/leo/modules/2.6.32/kernel/drivers/net/wireless/bcm4329/bcm4329.ko:system/lib/modules/bcm4329.ko \
     device/htc/leo/modules/2.6.32/kernel/fs/jbd2/jbd2.ko:system/lib/modules/2.6.32/kernel/fs/jbd2/jbd2.ko \
     device/htc/leo/modules/2.6.32/kernel/fs/cifs/cifs.ko:system/lib/modules/2.6.32/kernel/fs/cifs/cifs.ko \
-    device/htc/leo/modules/2.6.32/kernel/fs/ext4/ext4.ko:system/lib/modules/2.6.32/kernel/fs/ext4/ext4.ko \
+    device/htc/leo/modules/2.6.32/kernel/fs/ext4/ext4.ko:system/lib/modules/2.6.32/kernel/fs/ext4/ext4.ko 
 
    
 
