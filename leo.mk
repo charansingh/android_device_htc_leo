@@ -19,31 +19,30 @@
 # not specialized for any geography.
 #
 
+# The gps config appropriate for this device
+PRODUCT_COPY_FILES += \
+    device/htc/leo/gps.conf:system/etc/gps.conf
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
-
-PRODUCT_COPY_FILES += \
-    vendor/htc/leo/proprietary/libcamera.so:obj/lib/libcamera.so
 
 PRODUCT_COPY_FILES += \
     device/htc/leo/init.leo.rc:root/init.leo.rc \
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=240 \
-    rild.libpath=/system/lib/libhtc_ril.so \
-    ro.ril.ecc.HTC-ELL=92,93,94 \
-    ro.ril.ecc.HTC-WWE=999 \
-    ro.ril.enable.a52.HTC-ITA=1 \
-    ro.ril.enable.a53.HTC-ITA=1 \
-    ro.ril.enable.a52=0 \
-    ro.ril.enable.a53=1 \
-    ro.ril.enable.dtm = 1 \
-    ro.ril.gprsclass = 12 \
-    ro.ril.hsdpa.category=8 \
-    ro.ril.hsupa.category=5 \
-    ro.ril.hsxpa=2 \
-    wifi.interface=eth0 \
-    wifi.supplicant_scan_interval=15
+    ro.com.google.clientidbase=android-tmobile-us \
+    ro.com.google.clientidbase.vs=android-hms-tmobile-us \
+    ro.com.google.clientidbase.ms=android-hms-tmobile-us \
+    ro.com.google.locationfeatures=1 \
+    ro.com.google.networklocation=1 \
+    ro.com.google.gmsversion=2.2_r6 \
+    ro.setupwizard.enable_bypass=1 \
+    dalvik.vm.lockprof.threshold=500 \
+    dalvik.vm.dexopt-flags=m=y
+    ro.media.dec.jpeg.memcap=20000000 \
+    dalvik.vm.lockprof.threshold=500 \
+    dalvik.vm.dexopt-flags=m=y \
+    ro.opengles.version=131072
+
 
 # Default network type.
 # 0 => WCDMA preferred.
@@ -57,6 +56,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # For PDP overlap problem
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.avoid.pdp.overlap = 1
+
+# we have enough storage space to hold precise GC data
+PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Set default_france.acdb to audio_ctl driver if the ro.cid is HTC__203
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -74,8 +76,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 ## (2) Also get non-open-source GSM-specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/leo/leo-vendor.mk)
 
-PRODUCT_PROPERTY_OVERRIDES +=
-    ro.media.dec.jpeg.memcap=20000000
 
 DEVICE_PACKAGE_OVERLAYS += device/htc/leo/overlay
 
@@ -104,8 +104,6 @@ PRODUCT_PACKAGES += \
     libOmxVidEnc
 
 
-# we have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
 
 # leo uses high-density artwork where available
 PRODUCT_LOCALES := hdpi

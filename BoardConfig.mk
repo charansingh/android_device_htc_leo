@@ -73,6 +73,13 @@ BOARD_USE_REVERSE_FFC := true
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := leo
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 1240
 
+# Use RGB565 surfaces until userspace drivers are upgraded
+BOARD_NO_RGBX_8888 := true
+
+BOARD_HAVE_FM_RADIO := true
+BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
+
+
 # # cat /proc/mtd
 # dev:    size   erasesize  name
 # mtd0: 000a0000 00020000 "misc"
