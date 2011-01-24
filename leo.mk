@@ -28,20 +28,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/leo/init.leo.rc:root/init.leo.rc \
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.clientidbase=android-tmobile-us \
-    ro.com.google.clientidbase.vs=android-hms-tmobile-us \
-    ro.com.google.clientidbase.ms=android-hms-tmobile-us \
-    ro.com.google.locationfeatures=1 \
-    ro.com.google.networklocation=1 \
-    ro.com.google.gmsversion=2.2_r6 \
-    ro.setupwizard.enable_bypass=1 \
-    dalvik.vm.lockprof.threshold=500 \
-    dalvik.vm.dexopt-flags=m=y
-    ro.media.dec.jpeg.memcap=20000000 \
-    dalvik.vm.lockprof.threshold=500 \
-    dalvik.vm.dexopt-flags=m=y \
-    ro.opengles.version=131072
+PRODUCT_PROPERTY_OVERRIDES := \
+    ro.sf.lcd_density=240 \
+    rild.libpath=/system/lib/libhtc_ril.so \
+    wifi.interface=eth0 \
+    wifi.supplicant_scan_interval=15 \
+    ro.ril.hsxpa=2 \
+    ro.ril.gprsclass=10
+
 
 
 # Default network type.
@@ -52,6 +46,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # For HSDPA low throughput
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.disable.power.collapse = 1
+
+# The OpenGL ES API level that is natively supported by this device.
+# This is a 16.16 fixed point number
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opengles.version=131072
 
 # For PDP overlap problem
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -100,6 +99,7 @@ PRODUCT_PACKAGES += \
     gralloc.qsd8k \
     copybit.qsd8k \
     gps.leo \
+    libhtc_ril_wrapper \
     libOmxCore \
     libOmxVidEnc
 
