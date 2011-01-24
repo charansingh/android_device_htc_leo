@@ -132,12 +132,10 @@ PRODUCT_COPY_FILES += \
     device/htc/leo/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
 
 # media profiles and capabilities spec
-$(call inherit-product, device/htc/glacier/media_a1026.mk)
+$(call inherit-product, device/htc/leo/media_a1026.mk)
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
 
-PRODUCT_NAME := full_leo
+PRODUCT_NAME := htc_leo
 PRODUCT_DEVICE := leo
-PRODUCT_MODEL := HD2
-PRODUCT_MANUFACTURER := HTC
