@@ -135,8 +135,8 @@ PRODUCT_COPY_FILES += \
     device/htc/leo/modules/2.6.32/kernel/fs/cifs/cifs.ko:system/lib/modules/2.6.32/kernel/fs/cifs/cifs.ko \
     device/htc/leo/modules/2.6.32/kernel/fs/ext4/ext4.ko:system/lib/modules/2.6.32/kernel/fs/ext4/ext4.ko 
 
-   
-
+# media profiles and capabilities spec
+$(call inherit-product, device/htc/glacier/media_a1026.mk)
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
