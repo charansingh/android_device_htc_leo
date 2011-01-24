@@ -62,10 +62,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.enable.prl.recognition = 0
 
-# The OpenGL ES API level that is natively supported by this device.
-# This is a 16.16 fixed point number
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=131072
 
 # This is a high density device with more memory, so larger vm heaps for it.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -114,6 +110,9 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 # leo uses high-density artwork where available
 PRODUCT_LOCALES := hdpi
 
+PRODUCT_COPY_FILES += \
+    device/htc/leo/vold.fstab:system/etc/vold.fstab
+
 # Keylayouts
 PRODUCT_COPY_FILES += \
     device/htc/leo/leo-keypad.kl:system/usr/keylayout/leo-keypad.kl \
@@ -130,13 +129,15 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
 PRODUCT_COPY_FILES += \
-    device/htc/leo/modules/2.6.32/kernel/drivers/net/wireless/bcm4329/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/htc/leo/modules/2.6.32/kernel/fs/jbd2/jbd2.ko:system/lib/modules/2.6.32/kernel/fs/jbd2/jbd2.ko \
-    device/htc/leo/modules/2.6.32/kernel/fs/cifs/cifs.ko:system/lib/modules/2.6.32/kernel/fs/cifs/cifs.ko \
-    device/htc/leo/modules/2.6.32/kernel/fs/ext4/ext4.ko:system/lib/modules/2.6.32/kernel/fs/ext4/ext4.ko 
+    device/htc/leo/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
 
 # media profiles and capabilities spec
 $(call inherit-product, device/htc/glacier/media_a1026.mk)
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
+
+PRODUCT_NAME := full_leo
+PRODUCT_DEVICE := leo
+PRODUCT_MODEL := HD2
+PRODUCT_MANUFACTURER := HTC

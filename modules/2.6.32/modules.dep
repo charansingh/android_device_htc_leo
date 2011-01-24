@@ -1,4 +1,0 @@
-kernel/fs/ext4/ext4.ko: kernel/fs/jbd2/jbd2.ko kernel/fs/mbcache.ko
-kernel/fs/jbd2/jbd2.ko:
-kernel/fs/cifs/cifs.ko:
-kernel/drivers/net/wireless/bcm4329/bcm4329.ko:
