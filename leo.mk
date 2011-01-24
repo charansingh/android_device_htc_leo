@@ -119,6 +119,12 @@ PRODUCT_COPY_FILES += \
     device/htc/leo/leo-keypad.kcm.bin:system/usr/keychars/leo-keypad.kcm.bin \
     device/htc/leo/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl
 
+# Firmware
+PRODUCT_COPY_FILES += \
+    device/htc/supersonic/firmware/fw_bcm4329.bin:system/etc/firmware/fw_bcm4329.bin \
+    device/htc/supersonic/firmware/fw_bcm4329_apsta.bin:system/etc/firmware/fw_bcm4329_apsta.bin
+
+
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/htc/leo/kernel
 else

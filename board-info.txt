@@ -1,3 +1,4 @@
 require mid=P*
 require board=bravo|leo|htcleo
+require device=bravo|leo|htcleo
 require version-microp=031d
