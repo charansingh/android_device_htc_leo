@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2010 Danijel Posilovic - dan1j3l
  * Copyright (C) 2008 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "Sensors"
+#define LOG_TAG "sensors_leo"
 
 #define LOG_NDEBUG 1
 
@@ -40,7 +39,7 @@
 #define __MAX(a,b) ((a)>=(b)?(a):(b))
 
 /*****************************************************************************/
-
+#define TEMP_AZIMUTH_HACK 1
 #define MAX_NUM_SENSORS 6
 
 #define SUPPORTED_SENSORS  ((1<<MAX_NUM_SENSORS)-1)
@@ -76,6 +75,7 @@ static int id_to_sensor[MAX_NUM_SENSORS] = {
 #define SENSORS_LIGHT_GROUP        (1<<ID_L)
 
 /*****************************************************************************/
+static int g_delay = -1;
 
 struct sensors_control_context_t {
     struct sensors_control_device_t device; // must be first
@@ -110,25 +110,25 @@ static const struct sensor_t sSensorList[] = {
         { "BMA150 3-axis Accelerometer",
                 "Bosh",
                 1, SENSORS_HANDLE_BASE+ID_A,
-                SENSOR_TYPE_ACCELEROMETER, 4.0f*9.81f, (4.0f*9.81f)/256.0f, 0.2f, { } },
+                SENSOR_TYPE_ACCELEROMETER, 4.0f*9.81f, (4.0f*9.81f)/256.0f, 0.2f, 0, { } },
         { "AK8973 3-axis Magnetic field sensor",
                 "Asahi Kasei",
                 1, SENSORS_HANDLE_BASE+ID_M,
-                SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, 1.0f/16.0f, 6.8f, { } },
+                SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, 1.0f/16.0f, 6.8f, 0, { } },
         { "AK8973 Orientation sensor",
                 "Asahi Kasei",
                 1, SENSORS_HANDLE_BASE+ID_O,
-                SENSOR_TYPE_ORIENTATION, 360.0f, 1.0f, 7.0f, { } },
+                SENSOR_TYPE_ORIENTATION, 360.0f, 1.0f, 7.0f, 0, { } },
         { "CM3602 Proximity sensor",
                 "Capella Microsystems",
                 1, SENSORS_HANDLE_BASE+ID_P,
                 SENSOR_TYPE_PROXIMITY,
                 PROXIMITY_THRESHOLD_CM, PROXIMITY_THRESHOLD_CM,
-                0.5f, { } },
+                0.5f, 0, { } },
         { "CM3602 Light sensor",
                 "Capella Microsystems",
                 1, SENSORS_HANDLE_BASE+ID_L,
-                SENSOR_TYPE_LIGHT, 10240.0f, 1.0f, 0.5f, { } },
+                SENSOR_TYPE_LIGHT, 10240.0f, 1.0f, 0.5f, 0, { } },
 };
 
 static const float sLuxValues[8] = {
@@ -144,30 +144,6 @@ static const float sLuxValues[8] = {
 
 static int open_sensors(const struct hw_module_t* module, const char* name,
         struct hw_device_t** device);
-
-static int sensors__get_sensors_list(struct sensors_module_t* module,
-        struct sensor_t const** list)
-{
-    *list = sSensorList;
-    return ARRAY_SIZE(sSensorList);
-}
-
-static struct hw_module_methods_t sensors_module_methods = {
-    .open = open_sensors
-};
-
-const struct sensors_module_t HAL_MODULE_INFO_SYM = {
-    .common = {
-        .tag = HARDWARE_MODULE_TAG,
-        .version_major = 1,
-        .version_minor = 0,
-        .id = SENSORS_HARDWARE_MODULE_ID,
-        .name = "AK8973A & CM3602 Sensors Module",
-        .author = "The Android Open Source Project",
-        .methods = &sensors_module_methods,
-    },
-    .get_sensors_list = sensors__get_sensors_list
-};
 
 /*****************************************************************************/
 
@@ -571,8 +547,8 @@ static int control__set_delay(struct sensors_control_context_t *dev, int32_t ms)
     if (dev->akmd_fd <= 0) {
         return -1;
     }
-    short delay = ms;
-    if (!ioctl(dev->akmd_fd, ECS_IOCTL_APP_SET_DELAY, &delay)) {
+    g_delay = ms;
+    if (!ioctl(dev->akmd_fd, ECS_IOCTL_APP_SET_DELAY, &g_delay)) {
         return -errno;
     }
     return 0;
@@ -703,6 +679,19 @@ static int pick_sensor(struct sensors_data_context_t *dev,
     return -1;
 }
 
+static uint32_t fix_azimuth(uint32_t value) {
+   uint32_t ret=value;
+#ifdef TEMP_AZIMUTH_HACK
+   if (ret>=271 && ret<=360) {
+      ret=ret-270; 
+   } else if (ret>=0 && ret<=270) {
+      ret=ret+90;
+   }
+   //LOGD("%s: %-5d->%-5d ", __func__, value, ret);
+#endif
+   return (ret);
+}
+
 static uint32_t data__poll_process_akm_abs(struct sensors_data_context_t *dev,
                                            int fd __attribute__((unused)),
                                            struct input_event *event)
@@ -739,7 +728,7 @@ static uint32_t data__poll_process_akm_abs(struct sensors_data_context_t *dev,
             break;
         case EVENT_TYPE_YAW:
             new_sensors |= SENSORS_AKM_ORIENTATION;
-            dev->sensors[ID_O].orientation.azimuth =  event->value;
+            dev->sensors[ID_O].orientation.azimuth = fix_azimuth(event->value);
             break;
         case EVENT_TYPE_PITCH:
             new_sensors |= SENSORS_AKM_ORIENTATION;
@@ -948,6 +937,12 @@ static int data__poll(struct sensors_data_context_t *dev, sensors_data_t* values
             return 0x7FFFFFFF;
         }
 
+	/*
+        if (g_delay > 0) {
+	    usleep(g_delay * 1000);
+        }
+        */
+
         if (got_syn && dev->pendingSensors) {
             LOGV("got syn, picking sensor");
             return pick_sensor(dev, values);
@@ -986,6 +981,7 @@ static int open_sensors(const struct hw_module_t* module, const char* name,
         struct hw_device_t** device)
 {
     int status = -EINVAL;
+
     if (!strcmp(name, SENSORS_HARDWARE_CONTROL)) {
         struct sensors_control_context_t *dev;
         dev = malloc(sizeof(*dev));
@@ -1018,5 +1014,33 @@ static int open_sensors(const struct hw_module_t* module, const char* name,
         dev->device.poll = data__poll;
         *device = &dev->device.common;
     }
+
+    /*LOGD("%s: %s \n",__func__,name);*/
     return status;
 }
+
+
+static int sensors__get_sensors_list(struct sensors_module_t* module,
+        struct sensor_t const** list)
+{  
+    *list = sSensorList;
+    return ARRAY_SIZE(sSensorList);
+}
+
+static struct hw_module_methods_t sensors_module_methods = {
+    .open = open_sensors
+};
+
+const struct sensors_module_t HAL_MODULE_INFO_SYM = {
+    .common = {
+        .tag = HARDWARE_MODULE_TAG,
+        .version_major = 1,
+        .version_minor = 0,
+        .id = SENSORS_HARDWARE_MODULE_ID,
+        .name = "AK8973A & CM3602 Sensors Module",
+        .author = "The Android Open Source Project",
+        .methods = &sensors_module_methods,
+    },
+    .get_sensors_list = sensors__get_sensors_list
+};
+
