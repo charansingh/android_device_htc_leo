@@ -99,7 +99,7 @@ PRODUCT_PACKAGES += \
     gralloc.qsd8k \
     copybit.qsd8k \
     gps.leo \
-    libhtc_ril_wrapper \
+    leo-reference-ril \
     libOmxCore \
     libOmxVidEnc
 
