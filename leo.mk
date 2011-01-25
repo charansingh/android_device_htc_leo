@@ -109,14 +109,15 @@ PRODUCT_PACKAGES += \
     librs_jni \
     gralloc.qsd8k \
     copybit.qsd8k \
+    leo-reference-ril
     gps.leo \
     leo-reference-ril \
     libOmxCore \
-    libOmxVidEnc
+    libOmxVidEnc 
 
 
 
-# leo uses high-density artwork where available
+# leo uses high-density artwork where available 
 PRODUCT_LOCALES := hdpi
 
 PRODUCT_COPY_FILES += \
