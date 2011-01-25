@@ -95,8 +95,6 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 0x09100000   # limited so we enforce room 
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x093a0000
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-# Force use of power button in recovery for HD2
-BOARD_HAS_NO_SELECT_BUTTON := 1
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
 TARGET_PREBUILT_KERNEL := device/htc/leo/kernel
