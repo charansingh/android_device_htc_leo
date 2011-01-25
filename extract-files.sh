@@ -25,7 +25,11 @@ chmod 755 ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/akmd
 adb pull /system/bin/parse_radio_log ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/parse_radio_log
 chmod 755 ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/parse_radio_log
 adb pull /system/etc/AudioBTID.csv ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/AudioBTID.csv
+adb pull /system/etc/firmware/BCM4329B1_002.002.023.0360.0362.hcd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/BCM4329B1_002.002.023.0360.0362.hcd
+adb pull /system/etc/firmware/BCM4329B1_002.002.023.0436.0439.hcd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/BCM4329B1_002.002.023.0436.0439.hcd
+adb pull /system/etc/firmware/BCM4329B1_002.002.023.0436.0439.hcd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/BCM4329B1_002.002.023.0436.0439.hcd
 adb pull /system/etc/firmware/bcm4329.hcd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/bcm4329.hcd
+adb pull /system/etc/firmware/htcleo.acdb ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/htcleo.acdb
 adb pull /system/etc/firmware/default.acdb ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/default.acdb
 adb pull /system/etc/firmware/yamato_pfp.fw ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/yamato_pfp.fw
 adb pull /system/etc/firmware/yamato_pm4.fw ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/yamato_pm4.fw
@@ -67,6 +71,11 @@ PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/parse_radio_log:system/bin/parse_radio_log \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/AudioBTID.csv:system/etc/AudioBTID.csv \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/bcm4329.hcd:system/etc/firmware/bcm4329.hcd \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/BCM4329B1_002.002.023.0360.0362.hcd:system/etc/firmware/BCM4329B1_002.002.023.0360.0362.hcd \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/BCM4329B1_002.002.023.0436.0439.hcd:system/etc/firmware/BCM4329B1_002.002.023.0436.0439.hcd \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/BCM4329B1_002.002.023.0511.0538.hcd:system/etc/firmware/BCM4329B1_002.002.023.0511.0538.hcd \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/bcm4329.hcd:system/etc/firmware/bcm4329.hcd \\ 
+     vendor/__MANUFACTURER__/__DEVICE__/proprietary/htcleo.acdb:system/etc/firmware/htcleo.acdb \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libEGL_adreno200.so:system/lib/egl/libEGL_adreno200.so \\
