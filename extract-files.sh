@@ -74,7 +74,7 @@ PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/BCM4329B1_002.002.023.0360.0362.hcd:system/etc/firmware/BCM4329B1_002.002.023.0360.0362.hcd \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/BCM4329B1_002.002.023.0436.0439.hcd:system/etc/firmware/BCM4329B1_002.002.023.0436.0439.hcd \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/BCM4329B1_002.002.023.0511.0538.hcd:system/etc/firmware/BCM4329B1_002.002.023.0511.0538.hcd \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/bcm4329.hcd:system/etc/firmware/bcm4329.hcd \\ 
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/bcm4329.hcd:system/etc/firmware/bcm4329.hcd \\
      vendor/__MANUFACTURER__/__DEVICE__/proprietary/htcleo.acdb:system/etc/firmware/htcleo.acdb \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw \\
