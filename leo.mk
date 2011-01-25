@@ -28,15 +28,22 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/leo/init.leo.rc:root/init.leo.rc \
 
-PRODUCT_PROPERTY_OVERRIDES := \
+PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=240 \
     rild.libpath=/system/lib/libhtc_ril.so \
-    wifi.interface=eth0 \
-    wifi.supplicant_scan_interval=15 \
+    ro.ril.ecc.HTC-ELL=92,93,94 \
+    ro.ril.ecc.HTC-WWE=999 \
+    ro.ril.enable.a52.HTC-ITA=1 \
+    ro.ril.enable.a53.HTC-ITA=1 \
+    ro.ril.enable.a52=0 \
+    ro.ril.enable.a53=1 \
+    ro.ril.enable.dtm = 1 \
+    ro.ril.gprsclass = 12 \
+    ro.ril.hsdpa.category=8 \
+    ro.ril.hsupa.category=5 \
     ro.ril.hsxpa=2 \
-    ro.ril.gprsclass=10
-
-
+    wifi.interface=eth0 \
+    wifi.supplicant_scan_interval=15
 
 # Default network type.
 # 0 => WCDMA preferred.
@@ -46,6 +53,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # For HSDPA low throughput
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.disable.power.collapse = 1
+
+# AGPS otpions
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.ril.def.agps.mode=2
 
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
