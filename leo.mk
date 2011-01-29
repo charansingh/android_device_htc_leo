@@ -146,6 +146,15 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     device/htc/leo/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
+    device/htc/leo/modules/cifs.ko:system/lib/modules/cifs.ko \
+    device/htc/leo/modules/fuse.ko:system/lib/modules/fuse.ko \
+    device/htc/leo/modules/msm_rmnet.ko:system/lib/modules/msm_rmnet.ko \
+    device/htc/leo/modules/nls_utf8.ko:system/lib/modules/nls_utf8.ko \
+    device/htc/leo/modules/tun.ko:system/lib/modules/tun.ko
+
+PRODUCT_COPY_FILES += \
+    device/htc/leo/zImage.ko:boot/zImage \
+    device/htc/leo/initrd.gz:boot/initrd.gz \
 
 # media profiles and capabilities spec
 $(call inherit-product, device/htc/leo/media_a1026.mk)
