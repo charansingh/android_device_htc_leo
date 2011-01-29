@@ -109,7 +109,7 @@ PRODUCT_PACKAGES += \
     librs_jni \
     gralloc.qsd8k \
     copybit.qsd8k \
-    leo-reference-ril
+    leo-reference-ril \
     gps.leo \
     leo-reference-ril \
     libOmxCore \
