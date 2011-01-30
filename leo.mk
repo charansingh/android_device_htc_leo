@@ -111,7 +111,6 @@ PRODUCT_PACKAGES += \
     copybit.qsd8k \
     leo-reference-ril \
     gps.leo \
-    leo-reference-ril \
     libOmxCore \
     libOmxVidEnc 
 
@@ -135,14 +134,6 @@ PRODUCT_COPY_FILES += \
     device/htc/leo/firmware/fw_bcm4329_apsta.bin:system/etc/firmware/fw_bcm4329_apsta.bin
 
 
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/htc/leo/kernel
-else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
 
 PRODUCT_COPY_FILES += \
     device/htc/leo/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
@@ -153,7 +144,7 @@ PRODUCT_COPY_FILES += \
     device/htc/leo/modules/tun.ko:system/lib/modules/tun.ko
 
 PRODUCT_COPY_FILES += \
-    device/htc/leo/zImage.ko:boot/zImage \
+    device/htc/leo/zImage:boot/zImage \
     device/htc/leo/initrd.gz:boot/initrd.gz \
 
 # media profiles and capabilities spec
